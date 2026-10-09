@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #09090b;
+  --color-surface: #131316;
+  --color-surface-2: #1b1b20;
+  --color-line: #2a2a31;
+  --color-fg: #f4f4f5;
+  --color-muted: #9d9da7;
+  --color-accent: #c8f53b;
+  --color-accent-ink: #141a00;
+  --color-danger: #f87171;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+/* ---------- Loading shimmer ---------- */
+.shimmer {
+  background: linear-gradient(110deg, #18181c 30%, #26262d 50%, #18181c 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ---------- Hero aurora ---------- */
+.aurora {
+  background:
+    radial-gradient(40% 50% at 20% 30%, rgb(200 245 59 / 0.18), transparent 70%),
+    radial-gradient(35% 45% at 80% 20%, rgb(124 58 237 / 0.28), transparent 70%),
+    radial-gradient(45% 50% at 60% 90%, rgb(14 165 233 / 0.18), transparent 70%);
+  filter: blur(20px);
+  animation: aurora 18s ease-in-out infinite alternate;
+}
+@keyframes aurora {
+  to {
+    transform: translate3d(0, -4%, 0) scale(1.08) rotate(3deg);
+  }
+}
+
+.marquee {
+  animation: marquee 50s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Motion preset tiles ----------
+   A tiny layered "set" (sky, hills, subject) that the camera moves through. */
+.scene {
+  position: absolute;
+  inset: -12%;
+  transform-origin: 50% 55%;
+  animation-duration: 3.2s;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-iteration-count: infinite;
+}
+.scene-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #1e1b4b 0%, #7c3aed 55%, #f97316 100%);
+}
+.scene-sun {
+  position: absolute;
+  left: 58%;
+  top: 30%;
+  width: 18%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: #fde68a;
+  box-shadow: 0 0 40px 10px rgb(253 230 138 / 0.5);
+}
+.scene-hill-back {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 18%;
+  height: 34%;
+  background: #312e81;
+  clip-path: polygon(0 100%, 0 55%, 18% 25%, 34% 60%, 52% 15%, 70% 55%, 86% 30%, 100% 60%, 100% 100%);
+}
+.scene-hill-front {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  height: 30%;
+  background: #0b0a1f;
+  clip-path: polygon(0 100%, 0 40%, 25% 20%, 50% 45%, 75% 15%, 100% 40%, 100% 100%);
+}
+.scene-subject {
+  position: absolute;
+  left: 44%;
+  bottom: 22%;
+  width: 12%;
+  height: 26%;
+  border-radius: 40% 40% 12% 12%;
+  background: linear-gradient(180deg, #c8f53b, #65a30d);
+  box-shadow: 0 0 24px rgb(200 245 59 / 0.45);
+}
+
+.anim-static {
+  animation-name: none;
+}
+.anim-dolly-in {
+  animation-name: dolly-in;
+}
+.anim-dolly-out {
+  animation-name: dolly-out;
+}
+.anim-crash-zoom {
+  animation-name: crash-zoom;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+}
+.anim-vertigo {
+  animation-name: vertigo;
+}
+.anim-vertigo .scene-subject {
+  animation: vertigo-subject 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.anim-orbit {
+  animation-name: orbit;
+  animation-timing-function: linear;
+}
+.anim-arc-left {
+  animation-name: arc-left;
+}
+.anim-arc-right {
+  animation-name: arc-right;
+}
+.anim-truck-left {
+  animation-name: truck-left;
+}
+.anim-crane-up {
+  animation-name: crane-up;
+}
+.anim-crane-down {
+  animation-name: crane-down;
+}
+.anim-tilt-up {
+  animation-name: tilt-up;
+}
+.anim-top-down {
+  animation-name: top-down;
+  animation-timing-function: linear;
+}
+.anim-fpv {
+  animation-name: fpv;
+}
+.anim-whip-pan {
+  animation-name: whip-pan;
+}
+.anim-handheld {
+  animation-name: handheld;
+  animation-duration: 1.4s;
+}
+.anim-hyperlapse {
+  animation-name: hyperlapse;
+  animation-timing-function: steps(12);
+}
+
+@keyframes dolly-in {
+  from { transform: scale(1); }
+  to { transform: scale(1.45); }
+}
+@keyframes dolly-out {
+  from { transform: scale(1.45); }
+  to { transform: scale(1); }
+}
+@keyframes crash-zoom {
+  0%, 30% { transform: scale(1); }
+  45%, 100% { transform: scale(2.1) translateY(-4%); }
+}
+@keyframes vertigo {
+  from { transform: scale(1); }
+  to { transform: scale(1.6); }
+}
+@keyframes vertigo-subject {
+  from { transform: scale(1); }
+  to { transform: scale(0.62); }
+}
+@keyframes orbit {
+  0% { transform: perspective(500px) rotateY(0deg) scale(1.1); }
+  100% { transform: perspective(500px) rotateY(360deg) scale(1.1); }
+}
+@keyframes arc-left {
+  0%, 100% { transform: perspective(500px) rotateY(18deg) translateX(-6%) scale(1.15); }
+  50% { transform: perspective(500px) rotateY(-18deg) translateX(6%) scale(1.15); }
+}
+@keyframes arc-right {
+  0%, 100% { transform: perspective(500px) rotateY(-18deg) translateX(6%) scale(1.15); }
+  50% { transform: perspective(500px) rotateY(18deg) translateX(-6%) scale(1.15); }
+}
+@keyframes truck-left {
+  0%, 100% { transform: translateX(8%) scale(1.15); }
+  50% { transform: translateX(-8%) scale(1.15); }
+}
+@keyframes crane-up {
+  from { transform: translateY(-10%) scale(1.25); }
+  to { transform: translateY(12%) scale(1.05); }
+}
+@keyframes crane-down {
+  from { transform: translateY(12%) scale(1.05); }
+  to { transform: translateY(-10%) scale(1.25); }
+}
+@keyframes tilt-up {
+  from { transform: perspective(500px) rotateX(-14deg) translateY(-12%) scale(1.2); }
+  to { transform: perspective(500px) rotateX(10deg) translateY(10%) scale(1.2); }
+}
+@keyframes top-down {
+  from { transform: perspective(500px) rotateX(55deg) rotateZ(0deg) scale(1.3); }
+  to { transform: perspective(500px) rotateX(55deg) rotateZ(360deg) scale(1.3); }
+}
+@keyframes fpv {
+  0% { transform: scale(1) rotate(-6deg) translateY(-6%); }
+  50% { transform: scale(1.4) rotate(5deg) translateY(4%); }
+  100% { transform: scale(1.9) rotate(-3deg) translateY(-2%); }
+}
+@keyframes whip-pan {
+  0%, 35% { transform: translateX(10%); filter: blur(0); }
+  50% { filter: blur(6px); }
+  65%, 100% { transform: translateX(-10%); filter: blur(0); }
+}
+@keyframes handheld {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1.12); }
+  25% { transform: translate(1.2%, -0.8%) rotate(0.6deg) scale(1.12); }
+  50% { transform: translate(-0.8%, 1%) rotate(-0.5deg) scale(1.12); }
+  75% { transform: translate(0.9%, 0.6%) rotate(0.4deg) scale(1.12); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1.12); }
+}
+@keyframes hyperlapse {
+  from { transform: scale(1); }
+  to { transform: scale(1.6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene,
+  .scene *,
+  .aurora,
+  .marquee,
+  .shimmer {
+    animation: none !important;
+  }
+}
